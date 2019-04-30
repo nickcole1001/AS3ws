@@ -1,0 +1,26 @@
+- name: Send AS3 Declaration to BIGIP
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars_files:
+    - ../creds/bigipcreds.yaml
+
+    vars:
+
+      uri_method: POST
+
+
+      
+
+
+  name: Issue AS3 call
+    uri:
+      url: https://3.9.55.160/mgmt/shared/appsvcs/declare
+      method: uri_method
+      user: "{{big_ip_user}}"
+      password: "{{big_ip_pass}}"
+      body: "{{ lookup('file','./as3-declarations/simple-as3.json') }}"
+      force_basic_auth: yes
+      status_code: 201
+      body_format: json
